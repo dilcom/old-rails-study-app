@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_filter :authenticate_admin!, except: [:show, :index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -28,10 +29,6 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        if params[:images]
-          params[:images].each { |image| @product.pictures.create(image: image) }
-        end
-
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
@@ -73,6 +70,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :price)
+      params.require(:product).permit(:title, :description, :price, :images => [])
     end
 end
