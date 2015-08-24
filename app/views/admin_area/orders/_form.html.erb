@@ -1,0 +1,80 @@
+<%= form_for @order, :html => { :class => "form-horizontal order" } do |f| %>
+
+    <% if @order.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:name]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :country, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :country, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:country]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :state, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :state, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:state]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :city, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :city, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:city]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :address_line_1, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address_line_1, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:address_line_1]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :address_line_2, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address_line_2, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:address_line_2]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :postal_code, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :postal_code, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:postal_code]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :phone, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :phone, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:phone]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            orders_path, :class => 'btn btn-default' %>
+
+<% end %>

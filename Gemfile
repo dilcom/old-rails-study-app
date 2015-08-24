@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'fancybox2-rails', '~> 0.2.8'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -30,9 +31,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 # handle images
 gem 'paperclip', '~> 4.3.0'
+# Bootstrap 3
+gem "therubyracer"
+gem "less-rails"
+gem "twitter-bootstrap-rails"
+# Truncate text with html tags
+gem 'truncate_html'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -47,3 +53,4 @@ group :development, :test do
   gem 'spring'
 end
 
+ruby "2.2.1"

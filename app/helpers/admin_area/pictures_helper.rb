@@ -1,0 +1,2 @@
+module AdminArea::PicturesHelper
+end

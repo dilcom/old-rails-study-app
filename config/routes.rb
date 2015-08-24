@@ -1,10 +1,28 @@
 Rails.application.routes.draw do
-  resources :orders
-  resources :cart_items
-  resources :carts
-  resources :pictures
-  resources :products
+  scope :module => 'admin_area' do
+    resources :orders
+    resources :products do
+      resources :pictures
+    end
+  end
+  resources :feedbacks
+
+  post 'add_product', to: 'carts#add_product'
+  get 'view_product', to: 'store#view_product'
+  get 'about_us', to: 'store#about_us'
+  get 'inc_cart_item', to: 'carts#inc'
+  get 'dec_cart_item', to: 'carts#dec'
+  post 'remove_cart_item', to: 'carts#remove_cart_item'
+
   devise_for :admins
+
+  get 'checkout', to: 'admin_area/orders#new'
+  post 'checkout', to: 'admin_area/orders'
+  get 'cart', to: 'carts#show'
+  delete 'cart', to: 'carts#destroy'
+  get 'store', to: 'store#index'
+  get 'cart_items/:id/update_count', to: 'cart_items#update_count'
+  root to: 'store#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

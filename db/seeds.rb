@@ -5,6 +5,42 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Admin.create! :email => 'ivan@evgrafov.work',
+Admin.create(
+  :email => 'ivan@evgrafov.work',
   :password => '11111111',
   :password_confirmation => '11111111'
+)
+
+pr1 = Product.create(
+  title: 'Test product 1',
+  description: 'Test test test test test test test test test' \
+               '<p> Some paragraph </p>',
+  price: 12.99
+)
+
+Picture.create(
+  product_id: pr1.id,
+  image: File.new("#{Rails.root}/db/seed_images/1.jpg")
+)
+
+pr2 = Product.create(
+  title: 'Test product 2',
+  description: 'Test test test
+
+   test test test test test test
+
+   test test test test test test test test test test test 
+
+   test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
+  price: 11.99
+)
+
+Picture.create(
+  product_id: pr2.id,
+  image: File.new("#{Rails.root}/db/seed_images/2.jpg")
+)
+
+Picture.create(
+  product_id: pr2.id,
+  image: File.new("#{Rails.root}/db/seed_images/3.jpg")
+)

@@ -1,0 +1,21 @@
+// Place all the styles related to the store_controller controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.btn {
+  color: #444;
+
+  &:visited {
+    color: #444;
+  }
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.btn-cart {
+  position: relative;
+  top: 13px;
+  left: 0;
+}

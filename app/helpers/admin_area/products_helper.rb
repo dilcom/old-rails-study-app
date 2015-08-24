@@ -1,0 +1,2 @@
+module AdminArea::ProductsHelper
+end

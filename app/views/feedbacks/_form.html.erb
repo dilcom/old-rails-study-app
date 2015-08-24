@@ -1,0 +1,45 @@
+<%= form_for @feedback, :html => { :class => "form-horizontal feedback" } do |f| %>
+
+    <% if @feedback.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @feedback.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'form-control' %>
+    </div>
+    <%= error_span(@feedback[:email]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%= error_span(@feedback[:title]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :body, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :body, :class => 'form-control' %>
+    </div>
+    <%= error_span(@feedback[:body]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            feedbacks_path, :class => 'btn btn-default' %>
+
+<% end %>
