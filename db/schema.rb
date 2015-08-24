@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823133532) do
+ActiveRecord::Schema.define(version: 20150824063429) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -34,14 +34,29 @@ ActiveRecord::Schema.define(version: 20150823133532) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "count",      default: 1
+    t.integer  "order_id"
   end
 
   add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id"
+  add_index "cart_items", ["order_id"], name: "index_cart_items_on_order_id"
   add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id"
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "name"
+    t.string   "country"
+    t.string   "state"
+    t.string   "city"
+    t.string   "address_line_1"
+    t.string   "address_line_2"
+    t.string   "postal_code"
+    t.string   "phone"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "pictures", force: :cascade do |t|
