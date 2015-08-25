@@ -1,5 +1,5 @@
 class Cart < ActiveRecord::Base
-  has_many :cart_items
+  has_many :cart_items, dependent: :destroy
 
   def total
   	cart_items.inject(0) { |sum, cart_item| sum + cart_item.count * cart_item.product.price}

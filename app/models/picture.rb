@@ -4,7 +4,7 @@ class Picture < ActiveRecord::Base
   has_attached_file :image,
     path: ":rails_root/public/images/:id/:filename",
     url: "/images/:id/:filename",
-    styles: { medium: "300x300>", thumb: "300x300>" }
+    styles: { medium: "800x800>", thumb: "800x800>" }
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 end

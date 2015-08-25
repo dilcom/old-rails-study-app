@@ -5,6 +5,8 @@ class CartItem < ActiveRecord::Base
 
   validates :product_id, presence: true
 
+  before_destroy :ensure_not_referenced_by_an_order
+
   def inc
     self.count += 1
     save
@@ -17,5 +19,11 @@ class CartItem < ActiveRecord::Base
     else
       destroy
     end
+  end
+
+  private
+
+  def ensure_not_referenced_by_an_order
+    order.nil?
   end
 end

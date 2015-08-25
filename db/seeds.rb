@@ -23,24 +23,30 @@ Picture.create(
   image: File.new("#{Rails.root}/db/seed_images/1.jpg")
 )
 
-pr2 = Product.create(
-  title: 'Test product 2',
-  description: 'Test test test
+(2..15).each do |i|
+  pr2 = Product.create(
+    title: "Test product #{i}",
+    description: 
+    'Test test test <br />
+     test test test test test test <br />
+     test test test test test test test test test test test  <br />
+     test test test test test test test test test test test test test test test test  <br />
+     test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
+    price: 11.99 + rand(20)
+  )
 
-   test test test test test test
+  Picture.create(
+    product_id: pr2.id,
+    image: File.new("#{Rails.root}/db/seed_images/2.jpg")
+  )
 
-   test test test test test test test test test test test 
+  Picture.create(
+    product_id: pr2.id,
+    image: File.new("#{Rails.root}/db/seed_images/1.jpg")
+  )
 
-   test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test',
-  price: 11.99
-)
-
-Picture.create(
-  product_id: pr2.id,
-  image: File.new("#{Rails.root}/db/seed_images/2.jpg")
-)
-
-Picture.create(
-  product_id: pr2.id,
-  image: File.new("#{Rails.root}/db/seed_images/3.jpg")
-)
+  Picture.create(
+    product_id: pr2.id,
+    image: File.new("#{Rails.root}/db/seed_images/3.jpg")
+  )
+end
