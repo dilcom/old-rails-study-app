@@ -1,6 +1,7 @@
 class AdminArea::OrdersController < ApplicationController
-  before_filter :authenticate_admin!, except: [:create, :new]
+  before_filter :authenticate_admin!, except: [:create, :new, :destroy]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_filter :check_order_owner!, only: [:destroy]
 
   # GET /orders
   # GET /orders.json
@@ -25,10 +26,13 @@ class AdminArea::OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    params = order_params.merge(cart_items: @cart.cart_items)
+    @order = Order.new(params)
 
     respond_to do |format|
       if @order.save
+        session[:order] = @order.id
+        @cart.destroy
         format.html { render :show, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -57,7 +61,11 @@ class AdminArea::OrdersController < ApplicationController
   def destroy
     @order.destroy
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
+      if admin_signed_in?
+        format.html { redirect_to orders_path, notice: 'Order was successfully destroyed.' }
+      else        
+        format.html { redirect_to store_path, notice: 'Order was successfully destroyed.' }
+      end
       format.json { head :no_content }
     end
   end
@@ -71,5 +79,10 @@ class AdminArea::OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:email, :name, :country, :state, :city, :address_line_1, :address_line_2, :postal_code, :phone)
+    end
+
+    def check_order_owner!
+      return true if session[:order] == @order.id && !@order.paid?
+      authenticate_admin!
     end
 end

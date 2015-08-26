@@ -1,13 +1,8 @@
 class Cart < ActiveRecord::Base
-  has_many :cart_items, dependent: :destroy
+  has_many :cart_items
+  after_destroy :cleanup
 
-  def total
-  	cart_items.inject(0) { |sum, cart_item| sum + cart_item.count * cart_item.product.price}
-  end
-
-  def count
-  	cart_items.sum(:count)
-  end
+  include Countable
 
   def empty?
   	cart_items.empty?
@@ -22,5 +17,12 @@ class Cart < ActiveRecord::Base
       current_item = cart_items.create(product_id: product_id, cart_id: id)
     end
     current_item
+  end
+
+  private
+
+  def cleanup
+    cart_items.where(order_id: nil).delete_all
+    cart_items.update_all(cart_id: nil)
   end
 end

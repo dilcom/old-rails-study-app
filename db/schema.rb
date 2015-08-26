@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826071128) do
+ActiveRecord::Schema.define(version: 20150826092717) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20150826071128) do
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+
+  create_table "card_payments", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "last4"
+    t.decimal  "amount"
+    t.boolean  "success"
+    t.string   "authorization_code"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "product_id"
@@ -66,7 +77,11 @@ ActiveRecord::Schema.define(version: 20150826071128) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "email"
+    t.integer  "payment_id"
+    t.string   "payment_type"
   end
+
+  add_index "orders", ["payment_type", "payment_id"], name: "index_orders_on_payment_type_and_payment_id"
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "product_id"

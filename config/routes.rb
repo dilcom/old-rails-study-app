@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :card_payments, only: [:index, :new, :create]
+  post 'card_payment', to: 'card_payments/new'
+
   scope :module => 'admin_area' do
     resources :orders
     resources :products do
@@ -16,8 +19,7 @@ Rails.application.routes.draw do
 
   devise_for :admins
 
-  get 'checkout', to: 'admin_area/orders#new'
-  post 'checkout', to: 'admin_area/orders'
+  get 'last_order', to: 'store#last_order'
   get 'cart', to: 'carts#show'
   delete 'cart', to: 'carts#destroy'
   get 'store', to: 'store#index'

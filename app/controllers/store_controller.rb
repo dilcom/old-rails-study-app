@@ -1,4 +1,5 @@
 class StoreController < ApplicationController
+  before_action :set_order, only: [:last_order]
   def home
   end
 
@@ -11,5 +12,9 @@ class StoreController < ApplicationController
 
   def view_product
   	@product = Product.find(params[:id])
+  end
+
+  def last_order
+    render 'admin_area/orders/show'
   end
 end

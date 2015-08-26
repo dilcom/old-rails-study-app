@@ -22,6 +22,12 @@
   <dd><%= @order.phone %></dd>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @order.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:item_count) %>:</strong></dt>
+  <dd><%= @order.count %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total) %>:</strong></dt>
+  <dd><%= currency @order.total %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:payed) %>:</strong></dt>
+  <dd><%= @order.paid? %></dd>
 </dl>
 
 <% if admin_signed_in? %>
@@ -36,8 +42,17 @@
                 :class => 'btn btn-danger' %>
 <% else %>
   <div class='btn-group'>
-    <a class="btn btn-warning btn-order">Credit card</a>
+    <%= 
+      link_to 'Credit card',
+        new_card_payment_path,
+        class: 'btn btn-warning btn-order'
+    %>
     <a class="btn btn-warning btn-order">Paypal</a>
     <a class="btn btn-warning btn-order">Google pay</a>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  order_path(@order),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger btn-order' %>
   </div>
 <% end %>

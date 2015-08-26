@@ -35,6 +35,8 @@ gem "less-rails"
 gem "twitter-bootstrap-rails"
 # Truncate text with html tags
 gem 'truncate_html'
+# Provide payments
+gem 'activemerchant', '~> 1.52.0'
 # Use Unicorn as the app server
 # gem 'unicorn'
 # Use Capistrano for deployment
