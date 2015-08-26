@@ -29,10 +29,10 @@ class AdminArea::OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { render :show, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
-        format.html { render :new }
+        format.html { render 'carts/show' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -70,6 +70,6 @@ class AdminArea::OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :country, :state, :city, :address_line_1, :address_line_2, :postal_code, :phone)
+      params.require(:order).permit(:email, :name, :country, :state, :city, :address_line_1, :address_line_2, :postal_code, :phone)
     end
 end

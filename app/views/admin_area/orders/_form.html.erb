@@ -1,6 +1,6 @@
 <%= form_for @order, :html => { :class => "form-horizontal order" } do |f| %>
 
-    <% if @order.errors.any? %>
+  <% if @order.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h3>
@@ -70,6 +70,13 @@
       <%= f.text_field :phone, :class => 'form-control' %>
     </div>
     <%= error_span(@order[:phone]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:email]) %>
   </div>
 
 

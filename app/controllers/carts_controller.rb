@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   before_action :set_cart_item, only: [:inc, :dec, :remove_cart_item]
   # GET /cart
   def show
+    @order = Order.new
   end
 
   def add_product
