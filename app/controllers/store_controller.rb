@@ -15,6 +15,5 @@ class StoreController < ApplicationController
   end
 
   def last_order
-    render 'admin_area/orders/show'
   end
 end

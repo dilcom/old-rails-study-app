@@ -79,9 +79,13 @@
     <%= error_span(@order[:email]) %>
   </div>
 
-
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            orders_path, :class => 'btn btn-default' %>
+  <div class='btn-group'>
+    <%= f.button role: :submit, :class => 'btn btn-warning btn-order' do %>
+      <i class="fa fa-money"></i> Place order
+    <% end %>
+    <%= link_to store_path, :class => 'btn btn-warning btn-order' do %>
+      <i class="fa fa-shopping-cart"></i> Continue shopping
+    <% end %>
+  </div>
 
 <% end %>

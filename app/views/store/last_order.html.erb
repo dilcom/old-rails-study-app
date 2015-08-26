@@ -1,0 +1,50 @@
+<%- model_class = Order -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => "Order \##{@order.id}" %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @order.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
+  <dd><%= @order.country %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
+  <dd><%= @order.state %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @order.city %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address_line_1) %>:</strong></dt>
+  <dd><%= @order.address_line_1 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address_line_2) %>:</strong></dt>
+  <dd><%= @order.address_line_2 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:postal_code) %>:</strong></dt>
+  <dd><%= @order.postal_code %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:phone) %>:</strong></dt>
+  <dd><%= @order.phone %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @order.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:item_count) %>:</strong></dt>
+  <dd><%= @order.count %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total) %>:</strong></dt>
+  <dd><%= currency @order.total %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:payed) %>:</strong></dt>
+  <dd><%= @order.paid? %></dd>
+</dl>
+
+<div class='btn-group'>
+  <%= link_to new_card_payment_path, class: 'btn btn-warning btn-order' do %>
+    Credit card
+  <% end %>
+  <%= link_to new_card_payment_path, class: 'btn btn-warning btn-order' do %>
+    Paypal
+  <% end %>
+  <%= link_to new_card_payment_path, class: 'btn btn-warning btn-order' do %>
+    Google wallet
+  <% end %>
+  <%= link_to   order_path(@order),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => 'Are you sure?') },
+                :class => 'btn btn-danger btn-order' do %>
+    <i class="fa fa-trash-o"></i>
+    <%= t('.destroy', :default => t("helpers.links.destroy")) %>
+  <% end %>
+</div>

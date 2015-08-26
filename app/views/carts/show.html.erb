@@ -27,7 +27,7 @@
               <span class="itemName"> <%= link_to cart_item.product.title, view_product_path(id: cart_item.product.id) %> </span>
               <span class="popbtn">
                 <%= link_to remove_cart_item_path(cart_item_id: cart_item.id), method: :post do %>
-                  <i class="fa fa-trash-o fa-2x"></i>
+                  <i class="fa fa-times fa-2x"></i>
                 <% end %>
               </span>
               <span class="cart-row-price"> <%= currency cart_item.product.price %> </span>
@@ -37,19 +37,9 @@
             <span class="itemName">Total:</span>
             <span class="price"> <%= currency @cart.total %> </span>
             <span>
-              <div class='btn-group'>
-                <a class="btn btn-warning btn-order">Order</a>
-                <%= link_to "Clear", cart_path,
-                  method: :delete,
-                  :data => { 
-                    :confirm => t(
-                      '.confirm', :default => t(
-                        "helpers.links.confirm", :default => 'Are you sure?'
-                      )
-                    )
-                  },
-                  class: 'btn btn-danger btn-order' %>
-              </div>
+                <%= link_to cart_path, method: :delete, :data => { :confirm => t('.confirm', :default => 'Are you sure?') }, class: 'btn btn-danger btn-order' do %>
+                    <i class="fa fa-trash-o"></i> Clear cart
+                <% end %>
             </span>
           </li>
         </ul>

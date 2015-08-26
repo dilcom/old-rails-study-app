@@ -1,13 +1,8 @@
 module StoreHelper
-  MAX_DESCRIPTION_LENGTH_FOR_VIEW = 300
-
-  def short_description(product)
-    raw(truncate_html(product.description, length: MAX_DESCRIPTION_LENGTH_FOR_VIEW))
-  end
-
+  DEFAULT_IMAGE_URL = '/images/no-image.jpg'
   def fancy_product_tag(product)
     image_url = if product.pictures.any?
-      product.pictures.first.image.url
+      product.pictures.first.image.url(:thumb)
     else
       DEFAULT_IMAGE_URL
     end

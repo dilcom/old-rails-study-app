@@ -15,11 +15,11 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <%= image_tag @product.pictures.first.image.url, alt: 'Product image', class: 'img-responsive' %>
+        <%= image_tag @product.pictures.first.image.url(:medium), alt: 'Product image', class: 'img-responsive' %>
       </div>
       <% @product.pictures[1..-1].each do |picture| %>
         <div class="item">
-          <%= image_tag picture.image.url, alt: 'Product image', class: 'img-responsive' %>
+          <%= image_tag picture.image.url(:medium), alt: 'Product image', class: 'img-responsive' %>
         </div>
       <% end %>
     </div>

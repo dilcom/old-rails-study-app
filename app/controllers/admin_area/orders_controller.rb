@@ -2,6 +2,7 @@ class AdminArea::OrdersController < ApplicationController
   before_filter :authenticate_admin!, except: [:create, :new, :destroy]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_filter :check_order_owner!, only: [:destroy]
+  before_filter :check_cart_not_empty!, only: [:new, :create]
 
   # GET /orders
   # GET /orders.json
@@ -33,7 +34,7 @@ class AdminArea::OrdersController < ApplicationController
       if @order.save
         session[:order] = @order.id
         @cart.destroy
-        format.html { render :show, notice: 'Order was successfully created.' }
+        format.html { redirect_to last_order_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render 'carts/show' }

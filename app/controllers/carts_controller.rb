@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart_item, only: [:inc, :dec, :remove_cart_item]
+  before_filter :check_cart_not_empty!, only: [:show]
   # GET /cart
   def show
     @order = Order.new
