@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
 	has_many :cart_items
   belongs_to :payment, polymorphic: true
 
+  attr_accessor :email
+
   include Countable
 
 	validates_associated :cart_items
