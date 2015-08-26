@@ -44,7 +44,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+          <% if session[:order] %>
+            <span class="icon-bar"></span>
+          <% end %>
         </button>
         <a class="navbar-brand" href="/">ECommerce</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
@@ -52,7 +54,9 @@
             <li><%= link_to "About us", about_us_path %></li>
             <li><%= link_to "Store", store_path %></li>
             <li><%= link_to "Contact us", feedbacks_path  %></li>
-            <li><%= link_to "Last order", last_order_path %></li>
+            <% if session[:order] %>
+              <li><%= link_to "Active order", active_order_path %></li>
+            <% end %>
           </ul>
         </div>
       </div>

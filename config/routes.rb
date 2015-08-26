@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   devise_for :admins
 
-  get 'last_order', to: 'store#last_order'
+  get 'active_order', to: 'store#active_order'
   get 'cart', to: 'carts#show'
   delete 'cart', to: 'carts#destroy'
   get 'store', to: 'store#index'

@@ -1,5 +1,5 @@
 class StoreController < ApplicationController
-  before_action :set_order, only: [:last_order]
+  before_action :set_order, only: [:active_order]
   def home
   end
 
@@ -14,6 +14,6 @@ class StoreController < ApplicationController
   	@product = Product.find(params[:id])
   end
 
-  def last_order
+  def active_order
   end
 end
