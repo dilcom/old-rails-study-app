@@ -11,6 +11,13 @@ Admin.create(
   :password_confirmation => '11111111'
 )
 
+pr0 = Product.create(
+  title: 'Test product 0',
+  description: 'Test test test test test test test test test' \
+               '<p> No images here </p>',
+  price: 12.99
+)
+
 pr1 = Product.create(
   title: 'Test product 1',
   description: 'Test test test test test test test test test' \

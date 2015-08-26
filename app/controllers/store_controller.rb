@@ -7,7 +7,7 @@ class StoreController < ApplicationController
   end
 
   def index
-  	@products = Product.all
+  	@products = Product.all.includes(:pictures)
   end
 
   def view_product
