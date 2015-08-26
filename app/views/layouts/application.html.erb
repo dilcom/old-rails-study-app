@@ -44,7 +44,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-          <% if session[:order] %>
+          <% unless session[:order].nil? %>
             <span class="icon-bar"></span>
           <% end %>
         </button>
@@ -54,7 +54,7 @@
             <li><%= link_to "About us", about_us_path %></li>
             <li><%= link_to "Store", store_path %></li>
             <li><%= link_to "Contact us", feedbacks_path  %></li>
-            <% if session[:order] %>
+            <% unless session[:order].nil? %>
               <li><%= link_to "Active order", active_order_path %></li>
             <% end %>
           </ul>
