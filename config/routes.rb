@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'paypal_payments/checkout'
+
+  get 'paypal_payments/success'
+
+  get 'paypal_payments/fail'
+
   resources :card_payments, only: [:index, :new, :create]
   post 'card_payment', to: 'card_payments/new'
 

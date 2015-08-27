@@ -38,24 +38,23 @@ class CardPayment < ActiveRecord::Base
     end
   end
 
-  def process(order)
+  def process(order, p_ip)
     if valid_card
-      authorization = GATEWAY.store(credit_card).authorization
-      response = GATEWAY.authorize(amount * 100, authorization)
-      if response.success?
-        transaction = GATEWAY.capture(amount * 100, authorization)
-        unless transaction.success?
-          errors.add(:base, "The credit card you provided was declined.  Please double check your information and try again.") and return
-          return false
-        end
-        update_columns({authorization_code: transaction.authorization, success: true})
-        order.payment = self
-        order.save
+      authorization = CARD_GATEWAY.store(credit_card).authorization
+      response = CARD_GATEWAY.authorize(amount * 100, authorization)
+      # if response.success?
+      #   transaction = CARD_GATEWAY.capture(amount * 100, authorization)
+      #   unless transaction.success?
+      #     errors.add(:base, "The credit card you provided was declined.  Please double check your information and try again.") and return
+      #     return false
+      #   end
+      #  update_columns({authorization_code: transaction.authorization, success: true})
+        order.update_attributes(payment: self, purchased_at: Time.now, ip: p_ip)
         true
-      else
-        errors.add(:base, "Gateway is down. Please try again later.") and return
-        false
-      end
+      # else
+      #   errors.add(:base, "Gateway returned bad response. Please try again later.") and return
+      #   false
+      # end
     end
   end
 end

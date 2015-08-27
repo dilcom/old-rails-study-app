@@ -1,6 +1,6 @@
 class CardPaymentsController < ApplicationController
   before_filter :authenticate_admin!, only: [:index]
-  before_action :set_order, only: [:new, :create]
+  before_action :set_order_and_check_paid, only: [:new, :create]
 
   def index
     @payments = CardPayment.all
@@ -16,8 +16,8 @@ class CardPaymentsController < ApplicationController
     @payment = CardPayment.new(card_payment_params)
 
     if @payment.save
-      if @payment.process(@order)
-        redirect_to store_path, notice: "Order succesfully paid." and return
+      if @payment.process(@order, request.remote_ip)
+        redirect_to active_order_path, notice: "Order succesfully paid." and return
       end
     end
     @payment.destroy

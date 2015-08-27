@@ -18,4 +18,8 @@ class CartItem < ActiveRecord::Base
       destroy
     end
   end
+
+  def total
+    self.count * self.product.price
+  end
 end
