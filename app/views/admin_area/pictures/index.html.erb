@@ -18,7 +18,7 @@
   <tbody>
     <% @pictures.each do |picture| %>
       <tr>
-        <td><%= link_to picture.id, picture_path(picture) %></td>
+        <td><%= link_to picture.id, product_picture_path(picture.product_id, picture) %></td>
         <td><%= picture.product_id %></td>
         <td><%= picture.image_file_name %></td>
         <td><%= picture.image_content_type %></td>
@@ -27,9 +27,9 @@
         <td><%=l picture.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_picture_path(picture), :class => 'btn btn-default btn-xs' %>
+                      edit_product_picture_path(picture.product_id, picture), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      picture_path(picture),
+                      product_picture_path(picture.product_id, picture),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
@@ -40,5 +40,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_picture_path,
+            new_product_picture_path,
             :class => 'btn btn-primary' %>

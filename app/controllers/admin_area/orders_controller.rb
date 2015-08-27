@@ -1,8 +1,9 @@
 class AdminArea::OrdersController < ApplicationController
-  before_filter :authenticate_admin!, except: [:create, :new, :destroy]
+  layout 'admin_area', except: [:create]
+  before_filter :authenticate_admin!, except: [:create, :destroy]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_filter :check_order_owner!, only: [:destroy]
-  before_filter :check_cart_not_empty!, only: [:new, :create]
+  before_filter :check_cart_not_empty!, only: [:create]
 
   # GET /orders
   # GET /orders.json
@@ -13,11 +14,6 @@ class AdminArea::OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-  end
-
-  # GET /orders/new
-  def new
-    @order = Order.new
   end
 
   # GET /orders/1/edit

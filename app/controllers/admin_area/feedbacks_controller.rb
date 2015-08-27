@@ -1,5 +1,6 @@
 class AdminArea::FeedbacksController < ApplicationController
   before_filter :authenticate_admin!, except: [:create]
+  layout 'admin_area', except: [:create]
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
 
   # GET /feedbacks
@@ -23,9 +24,8 @@ class AdminArea::FeedbacksController < ApplicationController
     @feedback = Feedback.new(feedback_params)
     if @feedback.save
       redirect_to contact_us_path, notice: 'Feedback was successfully sent. Thank you.' and return
-    else
-      redirect_to contact_us_path, notice: 'Something went wrong.' and return
     end
+    render 'store/contact_us', notice: 'Something went wrong.'
   end
 
   # PATCH/PUT /feedbacks/1

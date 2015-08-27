@@ -1,11 +1,13 @@
 class AdminArea::PicturesController < ApplicationController
   before_filter :authenticate_admin!
+  layout 'admin_area'
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  before_action :set_product
 
   # GET /pictures
   # GET /pictures.json
   def index
-    @pictures = Picture.all
+    @pictures = @product.pictures
   end
 
   # GET /pictures/1
@@ -57,7 +59,7 @@ class AdminArea::PicturesController < ApplicationController
   def destroy
     @picture.destroy
     respond_to do |format|
-      format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
+      format.html { redirect_to product_pictures_url, notice: 'Picture was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -66,6 +68,11 @@ class AdminArea::PicturesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_picture
       @picture = Picture.find(params[:id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_product
+      @product = Product.find(params[:product_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

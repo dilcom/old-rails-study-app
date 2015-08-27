@@ -1,6 +1,5 @@
 <h1>Payment Attempts</h1>
 <div class="well">
-<%= link_to "New Payment", new_card_payment_path, class: "btn btn-primary" %>
 </div>
 <% if !flash[:notice].blank? %>
   <div class="alert alert-success">
@@ -29,7 +28,7 @@
     <% end %>
   <% else %>
     <tr>
-      <td colspan="5">No payments have been attempted.</td>
+      <td colspan="6">No payments have been attempted.</td>
     </tr>
   <% end %>
 </table>

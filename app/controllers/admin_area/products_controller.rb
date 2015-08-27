@@ -1,5 +1,6 @@
 class AdminArea::ProductsController < ApplicationController
-  before_filter :authenticate_admin!, except: [:show]
+  before_filter :authenticate_admin!
+  layout 'admin_area'
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -26,7 +27,6 @@ class AdminArea::ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }

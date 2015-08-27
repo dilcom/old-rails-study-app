@@ -1,5 +1,6 @@
 class CardPaymentsController < ApplicationController
   before_filter :authenticate_admin!, only: [:index]
+  layout 'admin_area', only: [:index]
   before_action :set_order_and_check_paid, only: [:new, :create]
 
   def index
