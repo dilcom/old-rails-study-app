@@ -1,0 +1,53 @@
+<h1>Contact us</h1>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non auctor metus. Phasellus diam magna, bibendum blandit maximus ut, placerat sed felis. Cras lobortis enim diam, id posuere urna luctus a. Fusce consectetur faucibus leo, nec fringilla nunc. Fusce eleifend iaculis ante. Nunc iaculis, odio sit amet eleifend porttitor, velit tellus sollicitudin enim, nec semper ipsum purus non odio. Sed accumsan, odio a bibendum mollis, eros arcu interdum turpis, sed feugiat justo nunc tristique mauris. Morbi mollis nulla non neque rutrum sollicitudin. Proin nisl purus, congue nec elementum sed, fringilla non orci. Curabitur maximus tellus eu tortor aliquam pretium. Pellentesque tellus sem, faucibus et lacinia nec, placerat quis sem. Cras sagittis eros mauris, blandit blandit quam scelerisque non.
+</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="well well-sm">
+        <%= form_for @feedback do |f| %>
+          <% if @feedback.errors.any? %>
+            <div id="error_expl" class="panel panel-danger">
+              <div class="panel-heading">
+                <h3 class="panel-title"><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h3>
+              </div>
+              <div class="panel-body">
+                <ul>
+                <% @feedback.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="name">Name</label>
+                  <%= f.text_field :name, class: 'form-control', placeholder: "Enter name", required: 'required' %>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                    <%= f.text_field :email, class: 'form-control', placeholder: "Enter email", required: 'required' %>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="message">Message</label>
+                <%= f.text_area :message, class: 'form-control', required: 'required', rows: 9, columns: 25, placeholder: 'Message' %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <%= f.submit 'Send message', class: 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

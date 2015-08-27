@@ -73,7 +73,7 @@
           <%= link_to paypal_payments_checkout_path, class: 'btn btn-warning btn-order' do %>
             Paypal
           <% end %>
-          <%= link_to new_card_payment_path, class: 'btn btn-warning btn-order' do %>
+          <%= link_to new_card_payment_path, class: 'btn btn-warning btn-order', style: "display: none;" do %>
             Google wallet
           <% end %>
           <%= link_to   order_path(@order),

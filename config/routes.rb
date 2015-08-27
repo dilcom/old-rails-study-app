@@ -9,19 +9,22 @@ Rails.application.routes.draw do
   post 'card_payment', to: 'card_payments/new'
 
   scope :module => 'admin_area' do
+    resources :feedbacks, except: [:new]
     resources :orders
     resources :products do
       resources :pictures
     end
   end
-  resources :feedbacks
+
+  get 'contact_us', to: 'store#contact_us'
+  post 'contact_us', to: 'feedbacks#create'
 
   post 'add_product', to: 'carts#add_product'
   get 'view_product', to: 'store#view_product'
   get 'about_us', to: 'store#about_us'
   get 'inc_cart_item', to: 'carts#inc'
   get 'dec_cart_item', to: 'carts#dec'
-  post 'remove_cart_item', to: 'carts#remove_cart_item'
+  delete 'remove_cart_item', to: 'carts#remove_cart_item'
 
   devise_for :admins
 

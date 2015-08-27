@@ -1,4 +1,5 @@
-class FeedbacksController < ApplicationController
+class AdminArea::FeedbacksController < ApplicationController
+  before_filter :authenticate_admin!, except: [:create]
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
 
   # GET /feedbacks
@@ -12,11 +13,6 @@ class FeedbacksController < ApplicationController
   def show
   end
 
-  # GET /feedbacks/new
-  def new
-    @feedback = Feedback.new
-  end
-
   # GET /feedbacks/1/edit
   def edit
   end
@@ -25,15 +21,10 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks.json
   def create
     @feedback = Feedback.new(feedback_params)
-
-    respond_to do |format|
-      if @feedback.save
-        format.html { redirect_to @feedback, notice: 'Feedback was successfully created.' }
-        format.json { render :show, status: :created, location: @feedback }
-      else
-        format.html { render :new }
-        format.json { render json: @feedback.errors, status: :unprocessable_entity }
-      end
+    if @feedback.save
+      redirect_to contact_us_path, notice: 'Feedback was successfully sent. Thank you.' and return
+    else
+      redirect_to contact_us_path, notice: 'Something went wrong.' and return
     end
   end
 
@@ -69,6 +60,6 @@ class FeedbacksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feedback_params
-      params.require(:feedback).permit(:email, :title, :body)
+      params.require(:feedback).permit(:email, :name, :message)
     end
 end

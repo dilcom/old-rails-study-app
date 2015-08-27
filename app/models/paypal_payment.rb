@@ -5,7 +5,6 @@ class PaypalPayment < ActiveRecord::Base
     return false if order_p.paid?
     response = PAYPAL_GATEWAY.purchase(order_p.total, express_purchase_options(p_ip))
     if response.success?
-      # order_p.update_attribute(:purchased_at, Time.now)
       order_p.update_attributes(payment: self, purchased_at: Time.now, ip: p_ip)
     end
     response.success?

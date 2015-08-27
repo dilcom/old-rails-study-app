@@ -16,4 +16,8 @@ class StoreController < ApplicationController
 
   def active_order
   end
+
+  def contact_us
+    @feedback = Feedback.new
+  end
 end
