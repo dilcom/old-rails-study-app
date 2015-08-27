@@ -6,6 +6,6 @@ ActiveMerchant::Billing::Base.mode = :test
 login = "AJ7838-05"
 password="balcx9b42ya2028jxlp574dgkqxvbsgj"
 GATEWAY = ActiveMerchant::Billing::FirstdataE4Gateway.new(
-      login: login,
-      password: password
+  login: login,
+  password: password
 )

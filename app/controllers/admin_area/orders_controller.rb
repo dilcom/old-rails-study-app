@@ -34,7 +34,7 @@ class AdminArea::OrdersController < ApplicationController
       if @order.save
         session[:order] = @order.id
         @cart.destroy
-        format.html { redirect_to last_order_path, notice: 'Order was successfully created.' }
+        format.html { redirect_to active_order_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render 'carts/show' }

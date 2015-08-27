@@ -16,10 +16,11 @@ class CardPaymentsController < ApplicationController
     @payment = CardPayment.new(card_payment_params)
 
     if @payment.save
-      if @payment.process
+      if @payment.process(@order)
         redirect_to store_path, notice: "Order succesfully paid." and return
       end
     end
+    @payment.destroy
     render 'new'
   end
 

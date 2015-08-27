@@ -98,29 +98,8 @@ a:hover {
 
 
 .navbar-brand{
-  color: #fff;
   font-family: Open Sans, sans-serif;
   padding-left: 32px;
-}
-
-.navbar-brand:hover{
-  color: #000;
-}
-
-.navbar-nav > li > a {
-  color: #fff;
-}
-
-.navbar-nav > li > a:hover {
-  color: #000;
-}
-
-.navbar-nav > li > a:visited {
-  color: #fff;
-}
-
-.navbar-brand:visited{
-  color: #fff;
 }
 
 /*-----------------------------------
