@@ -1,0 +1,28 @@
+<%- model_class = CardPayment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => 'Payment attempt via credit card' %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
+  <dd><%= @card_payment.first_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
+  <dd><%= @card_payment.last_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last4) %>:</strong></dt>
+  <dd><%= @card_payment.last4 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
+  <dd><%= currency @card_payment.amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:success) %>:</strong></dt>
+  <dd><%= @card_payment.success %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:authorization_code) %>:</strong></dt>
+  <dd><%= @card_payment.authorization_code %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:attempted_at) %>:</strong></dt>
+  <dd><%= @card_payment.created_at %></dd>
+  <% if @card_payment.order %>
+    <dt><strong><%= model_class.human_attribute_name(:order) %>:</strong></dt>
+    <dd><%= link_to "\##{@card_payment.order.id}", @card_payment.order %></dd>
+  <% end %>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              card_payments_path, :class => 'btn btn-default'  %>

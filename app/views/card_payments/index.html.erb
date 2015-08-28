@@ -1,4 +1,4 @@
-<h1>Payment Attempts</h1>
+<h1>Payment attempts via credit cards</h1>
 <div class="well">
 </div>
 <% if !flash[:notice].blank? %>
@@ -8,6 +8,7 @@
 <% end %>
 <table class="table table-bordered table-striped">
   <tr>
+    <th>Id</th>
     <th>First Name</th>
     <th>Last Name</th>
     <th>Last 4</th>
@@ -15,13 +16,14 @@
     <th>Succeeded?</th>
     <th>Authorization Code</th>
   </tr>
-  <% if @payments.size > 0 %>
-    <% @payments.each do |payment| %>
+  <% if @card_payments.size > 0 %>
+    <% @card_payments.each do |payment| %>
       <tr>
+        <td><%= link_to payment.id, card_payment_path(payment) %></td>
         <td><%= payment.first_name %></td>
         <td><%= payment.last_name %></td>
         <td><%= payment.last4 %></td>
-        <td><%= number_to_currency payment.amount %></td>
+        <td><%= currency payment.amount %></td>
         <td><%= payment.success == true ? "Yes" : "No" %></td>
         <td><%= payment.authorization_code %></td>
       </tr>

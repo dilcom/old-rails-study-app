@@ -10,7 +10,7 @@
       <th><%= model_class.human_attribute_name(:phone) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%= model_class.human_attribute_name(:paid?) %></th>      
+      <th><%= model_class.human_attribute_name(:payment) %></th>      
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -22,7 +22,7 @@
         <td><%= order.phone %></td>
         <td><%= order.email %></td>
         <td><%=l order.created_at %></td>
-        <td><%= order.paid? ? 'Paid' : 'Unpaid' %></td>
+        <td><%= order.paid? ? link_to("Via #{order.payment_type}", order.payment) : 'Not paid yet' %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_order_path(order), :class => 'btn btn-default btn-xs' %>

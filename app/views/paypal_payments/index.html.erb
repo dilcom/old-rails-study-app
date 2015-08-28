@@ -1,0 +1,24 @@
+<%- model_class = PaypalPayment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => 'Payments via PayPal' %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:express_token) %></th>
+      <th><%= model_class.human_attribute_name(:express_payer_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @paypal_payments.each do |paypal_payment| %>
+      <tr>
+        <td><%= link_to paypal_payment.id, paypal_payment_path(paypal_payment) %></td>
+        <td><%= paypal_payment.express_token %></td>
+        <td><%= paypal_payment.express_payer_id %></td>
+        <td><%=l paypal_payment.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

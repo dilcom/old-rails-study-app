@@ -1,7 +1,17 @@
 class PaypalPaymentsController < ApplicationController
-  before_action :set_order_and_check_paid, only: [:checkout, :success]
+  before_filter :authenticate_admin!, only: [:index, :show]
+  before_action :set_order_and_check_paid, only: [:new, :success]
+  layout 'admin_area', only: [:index, :show]
 
-  def checkout
+  def index
+    @paypal_payments = PaypalPayment.all
+  end
+
+  def show
+    @paypal_payment = PaypalPayment.find(params[:id])
+  end
+
+  def new
     items = @order.cart_items.map do |cart_item|
       product = cart_item.product
       [ [:name, product.title],
@@ -13,8 +23,8 @@ class PaypalPaymentsController < ApplicationController
     items.map!(&:to_h)
     response = PAYPAL_GATEWAY.setup_purchase(@order.total * 100,
       ip: request.remote_ip,
-      return_url: paypal_payments_success_url,
-      cancel_return_url: paypal_payments_fail_url,
+      return_url: paypal_success_url,
+      cancel_return_url: paypal_fail_url,
       currency: "USD",
       allow_guest_checkout: true,
       items: items

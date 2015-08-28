@@ -12,12 +12,13 @@ Rails.application.routes.draw do
   # administration end
 
   ## Payments
-  get 'paypal_payments/checkout'
-  get 'paypal_payments/success'
-  get 'paypal_payments/fail'
+  resources :paypal_payments, only: [:index, :show]
+  get 'paypal_checkout', to: 'paypal_payments#new'
+  get 'paypal_success', to: 'paypal_payments#success'
+  get 'paypal_fail', to: 'paypal_payments#fail'
 
-  resources :card_payments, only: [:index, :new, :create]
-  post 'card_payment', to: 'card_payments/new'
+  resources :card_payments, only: [:index, :show, :create]
+  get 'card_checkout', to: 'card_payments#new'
   # payments end
 
   ## Cart and cart items
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   get 'store', to: 'store#index'
   get 'view_product/:id', to: 'store#view_product', as: 'view_product'
   get 'about_us', to: 'store#about_us'
+  get 'home', to: 'store#home'
   # store end
 
   ## Contact us form

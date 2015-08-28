@@ -46,14 +46,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">ECommerce administration</a>
+        <a class="navbar-brand" href="/"> <i class="fa fa-lock"></i> Go to to normal site</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><%= link_to "Products", products_path %></li>
             <li><%= link_to "Orders", orders_path %></li>
             <li><%= link_to "Feedbacks", feedbacks_path %></li>
             <li><%= link_to "Card payments", card_payments_path %></li>
+            <li><%= link_to "Paypal payments", paypal_payments_path %></li>
             <li><%= link_to "Logout", destroy_admin_session_path, method: :delete %></li>
           </ul>
         </div>

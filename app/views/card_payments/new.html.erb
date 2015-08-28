@@ -2,17 +2,17 @@
   <div class="col-xs-6 col-xs-offset-3">
     <h1>Payment for order #<%= @order.id %>.</h1>
 
-    <% if @payment.errors.any? %>
+    <% if @card_payment.errors.any? %>
       <div class="alert alert-danger">
         <ul>
-          <% @payment.errors.full_messages.each do |msg| %>
+          <% @card_payment.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
     <div class="well">
-      <%= form_for @payment do |f| %>
+      <%= form_for @card_payment do |f| %>
         <div class="form-group">
           <%= f.label :first_name, class: "control-label" %>
           <%= f.text_field :first_name, class: "form-control" %>

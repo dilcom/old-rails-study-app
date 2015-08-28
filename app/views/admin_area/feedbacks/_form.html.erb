@@ -1,44 +1,44 @@
-<%= form_for @feedback, :html => { :class => "form-horizontal feedback col-md-6" } do |f| %>
-
+<div class = 'col-md-6'>
+  <%= form_for @feedback, :html => { :class => "form-horizontal feedback" } do |f| %>
     <% if @feedback.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h3>
+      <div id="error_expl" class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h3>
+        </div>
+        <div class="panel-body">
+          <ul>
+          <% @feedback.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       </div>
-      <div class="panel-body">
-        <ul>
-        <% @feedback.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
+    <% end %>
+    <div class="control-group">
+      <%= f.label :email, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :email, :class => 'form-control' %>
       </div>
+      <%= error_span(@feedback[:email]) %>
     </div>
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'form-control' %>
+      </div>
+      <%= error_span(@feedback[:name]) %>
+    </div>
+    <div class="control-group">
+      <%= f.label :message, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :message, :class => 'form-control', :rows => 10, :cols => 25 %>
+      </div>
+      <%= error_span(@feedback[:message]) %>
+    </div>
+
+    <br/>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              feedbacks_path, :class => 'btn btn-default' %>
   <% end %>
-
-  <div class="control-group">
-    <%= f.label :email, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email, :class => 'form-control' %>
-    </div>
-    <%= error_span(@feedback[:email]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'form-control' %>
-    </div>
-    <%= error_span(@feedback[:name]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :message, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :message, :class => 'form-control', :rows => 10, :cols => 25 %>
-    </div>
-    <%= error_span(@feedback[:message]) %>
-  </div>
-
-  <br/>
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            feedbacks_path, :class => 'btn btn-default' %>
-<% end %>
+</div>

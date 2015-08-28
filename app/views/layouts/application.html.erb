@@ -44,13 +44,19 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
           <% if active_order_exists? %>
             <span class="icon-bar"></span>
           <% end %>
         </button>
-        <a class="navbar-brand" href="/">ECommerce</a>
+        <% if admin_signed_in? %>
+          <a class="navbar-brand" href="/orders"> <i class="fa fa-cloud"></i> Go to to admin area </a>
+        <% else %>
+          <a class="navbar-brand" href="/"> <i class="fa fa-cloud"></i> ECommerce </a>
+        <% end %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
+            <li><%= link_to "Home", home_path %></li>
             <li><%= link_to "About us", about_us_path %></li>
             <li><%= link_to "Store", store_path %></li>
             <li><%= link_to "Contact us", contact_us_path  %></li>

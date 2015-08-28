@@ -1,0 +1,16 @@
+<%- model_class = PaypalPayment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:express_token) %>:</strong></dt>
+  <dd><%= @paypal_payment.express_token %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:express_payer_id) %>:</strong></dt>
+  <dd><%= @paypal_payment.express_payer_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:order) %>:</strong></dt>
+  <dd><%= link_to "\##{@paypal_payment.order.id}", @paypal_payment.order %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              paypal_payments_path, :class => 'btn btn-default'  %>

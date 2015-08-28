@@ -1,27 +1,30 @@
 class CardPaymentsController < ApplicationController
-  before_filter :authenticate_admin!, only: [:index]
-  layout 'admin_area', only: [:index]
+  before_filter :authenticate_admin!, only: [:index, :show]
+  layout 'admin_area', only: [:index, :show]
   before_action :set_order_and_check_paid, only: [:new, :create]
 
   def index
-    @payments = CardPayment.all
+    @card_payments = CardPayment.all
   end
 
   def new
-    @payment = CardPayment.new
-    render 'new'
+    @card_payment = CardPayment.new
+  end
+
+  def show
+    @card_payment = CardPayment.find(params[:id])
   end
 
   def create
     card_payment_params = card_params.merge(amount: @order.total)
-    @payment = CardPayment.new(card_payment_params)
+    @card_payment = CardPayment.new(card_payment_params)
 
-    if @payment.save
-      if @payment.process(@order, request.remote_ip)
+    if @card_payment.save
+      if @card_payment.process(@order, request.remote_ip)
         redirect_to active_order_path, notice: "Order succesfully paid." and return
       end
     end
-    @payment.destroy
+    @card_payment.destroy
     render 'new'
   end
 
