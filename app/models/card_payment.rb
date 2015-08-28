@@ -42,19 +42,19 @@ class CardPayment < ActiveRecord::Base
     if valid_card
       authorization = CARD_GATEWAY.store(credit_card).authorization
       response = CARD_GATEWAY.authorize(amount * 100, authorization)
-      # if response.success?
-      #   transaction = CARD_GATEWAY.capture(amount * 100, authorization)
-      #   unless transaction.success?
-      #     errors.add(:base, "The credit card you provided was declined.  Please double check your information and try again.") and return
-      #     return false
-      #   end
-      #  update_columns({authorization_code: transaction.authorization, success: true})
+      if response.success?
+        transaction = CARD_GATEWAY.capture(amount * 100, authorization)
+        unless transaction.success?
+          errors.add(:base, "The credit card you provided was declined.  Please double check your information and try again.") and return
+          return false
+        end
+       update_columns({authorization_code: transaction.authorization, success: true})
         order.update_attributes(payment: self, purchased_at: Time.now, ip: p_ip)
         true
-      # else
-      #   errors.add(:base, "Gateway returned bad response. Please try again later.") and return
-      #   false
-      # end
+      else
+        errors.add(:base, "Gateway returned bad response. Please try again later.") and return
+        false
+      end
     end
   end
 end

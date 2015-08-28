@@ -7,11 +7,9 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:product_id) %></th>
-      <th><%= model_class.human_attribute_name(:image_file_name) %></th>
+      <th><%= model_class.human_attribute_name(:image) %></th>
       <th><%= model_class.human_attribute_name(:image_content_type) %></th>
       <th><%= model_class.human_attribute_name(:image_file_size) %></th>
-      <th><%= model_class.human_attribute_name(:image_updated_at) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -19,12 +17,10 @@
     <% @pictures.each do |picture| %>
       <tr>
         <td><%= link_to picture.id, product_picture_path(picture.product_id, picture) %></td>
-        <td><%= picture.product_id %></td>
-        <td><%= picture.image_file_name %></td>
+        <td><%= link_to picture.product_id, product_path(picture.product_id) %></td>
+        <td><%= fancy_image_tag picture.image %></td>
         <td><%= picture.image_content_type %></td>
-        <td><%= picture.image_file_size %></td>
-        <td><%= picture.image_updated_at %></td>
-        <td><%=l picture.created_at %></td>
+        <td><%= number_to_human_size picture.image_file_size %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_product_picture_path(picture.product_id, picture), :class => 'btn btn-default btn-xs' %>

@@ -7,7 +7,7 @@
     <div class="col-md-4 col-sm-6 container-fluid">
       <div class="row-fluid">
         <div class="col-xs-12">
-          <%= link_to view_product_path(id: product.id) do %>
+          <%= link_to view_product_path(product) do %>
             <h3> <%= product.title %> </h3>
             <%= fancy_product_tag(product) %>
           <% end %>
@@ -15,7 +15,7 @@
       </div>
       <div class="row-fluid">
         <div class='col-xs-12'>
-          <%= link_to add_product_path(product_id: product.id), method: :post , class: 'btn btn-warning btn-cart' do %>
+          <%= link_to add_product_path(product), method: :post , class: 'btn btn-warning btn-cart' do %>
             <i class="fa fa-shopping-cart"></i> Add to cart 
           <% end %>
           <span class="price"><%= currency product.price %></span>

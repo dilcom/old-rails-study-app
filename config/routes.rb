@@ -1,91 +1,45 @@
 Rails.application.routes.draw do
-  get 'paypal_payments/checkout'
-
-  get 'paypal_payments/success'
-
-  get 'paypal_payments/fail'
-
-  resources :card_payments, only: [:index, :new, :create]
-  post 'card_payment', to: 'card_payments/new'
+  ## Administration
+  devise_for :admins
 
   scope :module => 'admin_area' do
     resources :feedbacks, except: [:new]
-    resources :orders
+    resources :orders, except: [:new]
     resources :products do
       resources :pictures
     end
   end
+  # administration end
 
+  ## Payments
+  get 'paypal_payments/checkout'
+  get 'paypal_payments/success'
+  get 'paypal_payments/fail'
+
+  resources :card_payments, only: [:index, :new, :create]
+  post 'card_payment', to: 'card_payments/new'
+  # payments end
+
+  ## Cart and cart items
+  get 'cart', to: 'carts#show'
+  post 'cart/add_product/:id', to: 'carts#add_product', as: 'add_product'
+  get 'cart/inc_cart_item/:id', to: 'carts#inc', as: 'inc_cart_item'
+  get 'cart/dec_cart_item/:id', to: 'carts#dec', as: 'dec_cart_item'
+  delete '/cart/cart_item/:id', to: 'carts#remove_cart_item', as: 'remove_cart_item'
+  delete 'cart', to: 'carts#destroy'
+  # cart end
+
+  ## Store
+  get 'active_order', to: 'store#active_order'
+  get 'store', to: 'store#index'
+  get 'view_product/:id', to: 'store#view_product', as: 'view_product'
+  get 'about_us', to: 'store#about_us'
+  # store end
+
+  ## Contact us form
   get 'contact_us', to: 'store#contact_us'
   post 'contact_us', to: 'feedbacks#create'
+  # contact us end
 
-  post 'add_product', to: 'carts#add_product'
-  get 'view_product', to: 'store#view_product'
-  get 'about_us', to: 'store#about_us'
-  get 'inc_cart_item', to: 'carts#inc'
-  get 'dec_cart_item', to: 'carts#dec'
-  delete 'remove_cart_item', to: 'carts#remove_cart_item'
-
-  devise_for :admins
-
-  get 'active_order', to: 'store#active_order'
-  get 'cart', to: 'carts#show'
-  delete 'cart', to: 'carts#destroy'
-  get 'store', to: 'store#index'
-  get 'cart_items/:id/update_count', to: 'cart_items#update_count'
   root to: 'store#home'
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

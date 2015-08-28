@@ -3,63 +3,133 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-		<div class="container text-center">
-
-			<div class="col-md-5 col-sm-12">
-        <div class="bigcart"></div>
-        <ul>
-          <li class="row list-inline columnCaptions">
-            <span>QTY</span>
-            <span>ITEM</span>
-            <span>Price</span>
-          </li>
-          <% @cart.cart_items.each do |cart_item| %>
-            <li class="row cart-row">
-              <span class="quantity">
-                <%= link_to inc_cart_item_path(cart_item_id: cart_item.id), class: 'prod-count-mod' do %>
-                  <i class="fa fa-plus"></i>
-                <% end %>
-                <%= cart_item.count %>
-                <%= link_to dec_cart_item_path(cart_item_id: cart_item.id), class: 'prod-count-mod' do %>
-                  <i class="fa fa-minus"></i>
-                <% end %>
-              </span>
-              <span class="itemName"> <%= link_to cart_item.product.title, view_product_path(id: cart_item.product.id) %> </span>
-              <span class="popbtn">
-                <%= link_to remove_cart_item_path(cart_item_id: cart_item.id), method: :delete do %>
-                  <i class="fa fa-times fa-2x"></i>
-                <% end %>
-              </span>
-              <span class="cart-row-price"> <%= currency cart_item.product.price %> </span>
-            </li>
-          <% end %>
-          <li class="row cart-row totals">
-            <span class="itemName">Total:</span>
-            <span class="price"> <%= currency @cart.total %> </span>
-            <span>
-                <%= link_to cart_path, method: :delete, :data => { :confirm => t('.confirm', :default => 'Are you sure?') }, class: 'btn btn-danger btn-order' do %>
-                    <i class="fa fa-trash-o"></i> Clear cart
-                <% end %>
-            </span>
-          </li>
-        </ul>
-			</div>
-			
-			<div class="col-md-7 col-sm-12 text-left">
-        <%= render partial: 'admin_area/orders/form' %>
-			</div>
-
-		</div>
-
-		<!-- The popover content -->
-
-		<div id="popover" style="display: none">
-			<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-			<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
-		</div>
-		
-		<!-- JavaScript includes -->
-
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/customjs.js"></script>
+<div class="container text-center">
+  <div class="col-md-5 col-sm-12">
+    <div class="bigcart"></div>
+    <ul>
+      <li class="row list-inline columnCaptions">
+        <span>QTY</span>
+        <span>ITEM</span>
+        <span>Price</span>
+      </li>
+      <% @cart.cart_items.each do |cart_item| %>
+        <li class="row cart-row">
+          <span class="quantity">
+            <%= link_to inc_cart_item_path(cart_item), class: 'prod-count-mod' do %>
+              <i class="fa fa-plus"></i>
+            <% end %>
+            <%= cart_item.count %>
+            <%= link_to dec_cart_item_path(cart_item), class: 'prod-count-mod' do %>
+              <i class="fa fa-minus"></i>
+            <% end %>
+          </span>
+          <span class="itemName"> <%= link_to cart_item.product.title, view_product_path(cart_item.product) %> </span>
+          <span class="popbtn">
+            <%= link_to remove_cart_item_path(cart_item), method: :delete do %>
+              <i class="fa fa-times fa-2x"></i>
+            <% end %>
+          </span>
+          <span class="cart-row-price"> <%= currency cart_item.product.price %> </span>
+        </li>
+      <% end %>
+      <li class="row cart-row totals">
+        <span class="itemName">Total:</span>
+        <span class="price"> <%= currency @cart.total %> </span>
+        <span>
+            <%= link_to cart_path, method: :delete, :data => { :confirm => t('.confirm', :default => 'Are you sure?') }, class: 'btn btn-danger btn-order' do %>
+                <i class="fa fa-trash-o"></i> Clear cart
+            <% end %>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-7 col-sm-12 text-left">
+    <%= form_for @order, :html => { :class => "form-horizontal order" } do |f| %>
+      <% if @order.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+            <% @order.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+      <div class="control-group">
+        <%= f.label :name, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :name, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:name]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :country, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :country, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:country]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :state, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :state, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:state]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :city, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :city, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:city]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :address_line_1, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :address_line_1, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:address_line_1]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :address_line_2, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :address_line_2, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:address_line_2]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :postal_code, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :postal_code, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:postal_code]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :phone, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :phone, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:phone]) %>
+      </div>
+      <div class="control-group">
+        <%= f.label :email, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :email, :class => 'form-control' %>
+        </div>
+        <%= error_span(@order[:email]) %>
+      </div>
+      <div class='btn-group'>
+        <%= f.button role: :submit, :class => 'btn btn-warning btn-order' do %>
+          <i class="fa fa-money"></i> Place order
+        <% end %>
+        <%= link_to store_path, :class => 'btn btn-warning btn-order' do %>
+          <i class="fa fa-shopping-cart"></i> Continue shopping
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

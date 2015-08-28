@@ -3,9 +3,9 @@ class Product < ActiveRecord::Base
   has_many :cart_items
   before_destroy :ensure_not_referenced_by_any_cart_item
 
-  def pictures=(files)
+  def images=(files)
     files.each do |file|
-      Picture.create(image: file, product_id: id)
+      Picture.create(image: file, product: self)
     end
   end
 

@@ -3,18 +3,23 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:product_id) %>:</strong></dt>
-  <dd><%= @picture.product_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_file_name) %>:</strong></dt>
-  <dd><%= @picture.image_file_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_content_type) %>:</strong></dt>
-  <dd><%= @picture.image_content_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_file_size) %>:</strong></dt>
-  <dd><%= @picture.image_file_size %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_updated_at) %>:</strong></dt>
-  <dd><%= @picture.image_updated_at %></dd>
-</dl>
+<div class='col-md-6'>
+  <dl class="dl-horizontal">
+    <dt><strong><%= model_class.human_attribute_name(:product_id) %>:</strong></dt>
+    <dd><%= @picture.product_id %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:image_file_name) %>:</strong></dt>
+    <dd><%= @picture.image_file_name %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:image_content_type) %>:</strong></dt>
+    <dd><%= @picture.image_content_type %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:image_file_size) %>:</strong></dt>
+    <dd><%= number_to_human_size @picture.image_file_size %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:image_updated_at) %>:</strong></dt>
+    <dd><%= @picture.image_updated_at %></dd>
+  </dl>
+</div>
+<div class='col-md-6'>
+  <%= fancy_image_tag @picture.image %>
+</div>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               product_pictures_path, :class => 'btn btn-default'  %>

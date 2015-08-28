@@ -7,15 +7,10 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:country) %></th>
-      <th><%= model_class.human_attribute_name(:state) %></th>
-      <th><%= model_class.human_attribute_name(:city) %></th>
-      <th><%= model_class.human_attribute_name(:address_line_1) %></th>
-      <th><%= model_class.human_attribute_name(:address_line_2) %></th>
-      <th><%= model_class.human_attribute_name(:postal_code) %></th>
       <th><%= model_class.human_attribute_name(:phone) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:paid?) %></th>      
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -23,16 +18,11 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= link_to order.id, order_path(order) %></td>
-        <td><%= order.name %></td>
-        <td><%= order.country %></td>
-        <td><%= order.state %></td>
-        <td><%= order.city %></td>
-        <td><%= order.address_line_1 %></td>
-        <td><%= order.address_line_2 %></td>
-        <td><%= order.postal_code %></td>
+        <td><%= link_to order.name, order_path(order) %></td>
         <td><%= order.phone %></td>
         <td><%= order.email %></td>
         <td><%=l order.created_at %></td>
+        <td><%= order.paid? ? 'Paid' : 'Unpaid' %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_order_path(order), :class => 'btn btn-default btn-xs' %>

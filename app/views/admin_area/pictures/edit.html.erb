@@ -2,4 +2,9 @@
 <div class="page-header">
   <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
 </div>
-<%= render :partial => 'form' %>
+<div class = 'col-md-6'>
+  <%= render :partial => 'form' %>
+</div>
+<div class='col-md-6'>
+  <%= fancy_image_tag @picture.image %>
+</div>

@@ -33,7 +33,7 @@
       </dl>
     </div>
     <div class = 'col-sm-12 col-lg-6'>
-      <h3> Item list </h3>
+      <h3> Items list </h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -47,7 +47,7 @@
           <% @order.cart_items.each do |cart_item| %>
             <% product = cart_item.product %>
             <tr>
-              <td><%= link_to product.title, view_product_path(product_id: product.id) %></td>
+              <td><%= link_to product.title, view_product_path(product) %></td>
               <td><%= currency product.price %></td>
               <td><%= cart_item.count %></td>
               <td><%= currency cart_item.total %></td>

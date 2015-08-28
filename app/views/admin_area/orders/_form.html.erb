@@ -79,13 +79,8 @@
     <%= error_span(@order[:email]) %>
   </div>
 
-  <div class='btn-group'>
-    <%= f.button role: :submit, :class => 'btn btn-warning btn-order' do %>
-      <i class="fa fa-money"></i> Place order
-    <% end %>
-    <%= link_to store_path, :class => 'btn btn-warning btn-order' do %>
-      <i class="fa fa-shopping-cart"></i> Continue shopping
-    <% end %>
-  </div>
+  <br/>
+  <%= f.button role: :submit, :class => 'btn btn-primary' %>
+  <%= link_to 'Go back', orders_path, :class => 'btn' %>
 
 <% end %>

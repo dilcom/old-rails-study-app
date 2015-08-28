@@ -10,6 +10,8 @@
   <dd><%= @product.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
   <dd><%= @product.price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:pictures) %>:</strong></dt>
+  <dd><%= link_to 'pictures', product_pictures_path(@product) %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

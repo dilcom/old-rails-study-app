@@ -1,4 +1,4 @@
-<%= form_for @picture, :html => { :class => "form-horizontal picture" } do |f| %>
+<%= form_for [@product, @picture], :html => { :class => "form-horizontal picture" } do |f| %>
 
     <% if @picture.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -18,40 +18,19 @@
   <div class="control-group">
     <%= f.label :product_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :product_id, :class => 'form-control' %>
+      <%= f.text_field :product_id, :class => 'form-control', value: @product.id %>
     </div>
     <%= error_span(@picture[:product_id]) %>
   </div>
   <div class="control-group">
-    <%= f.label :image_file_name, :class => 'control-label' %>
+    <%= f.label :upload_new_image, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :image_file_name, :class => 'form-control' %>
+      <%= f.file_field :image, :class => 'form-control' %>
     </div>
-    <%= error_span(@picture[:image_file_name]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :image_content_type, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :image_content_type, :class => 'form-control' %>
-    </div>
-    <%= error_span(@picture[:image_content_type]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :image_file_size, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :image_file_size, :class => 'form-control' %>
-    </div>
-    <%= error_span(@picture[:image_file_size]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :image_updated_at, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :image_updated_at, :class => 'form-control' %>
-    </div>
-    <%= error_span(@picture[:image_updated_at]) %>
+    <%= error_span(@picture[:image]) %>
   </div>
 
-
+  <br/>
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             product_pictures_path, :class => 'btn btn-default' %>
