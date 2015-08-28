@@ -28,6 +28,14 @@
           <dd><%= @order.email %></dd>
         </dl>
     </div>
+    <% unless @order.comment.empty? %>
+      <div class = 'col-xs-12 col-sm-6'>
+        <h3> Comment: </h3>
+        <p>
+          <%= @order.comment %>
+        </p>
+      </div>
+    <% end %>
     <div class = 'col-sm-12 col-lg-6'>
       <h3> Items list </h3>
       <table class="table table-striped">

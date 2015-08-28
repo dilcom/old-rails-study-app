@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827103733) do
+ActiveRecord::Schema.define(version: 20150828112308) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20150827103733) do
     t.string   "payment_type"
     t.datetime "purchased_at"
     t.string   "ip"
+    t.text     "comment"
   end
 
   add_index "orders", ["payment_type", "payment_id"], name: "index_orders_on_payment_type_and_payment_id"

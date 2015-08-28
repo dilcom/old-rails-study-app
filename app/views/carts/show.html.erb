@@ -122,6 +122,13 @@
         </div>
         <%= error_span(@order[:email]) %>
       </div>
+      <div class="control-group">
+        <%= f.label :comment, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_area :comment, :class => 'form-control', rows: 5 %>
+        </div>
+        <%= error_span(@order[:comment]) %>
+      </div>
       <div class='btn-group'>
         <%= f.button role: :submit, :class => 'btn btn-warning btn-order' do %>
           <i class="fa fa-money"></i> Place order

@@ -75,7 +75,7 @@ class AdminArea::OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:email, :name, :country, :state, :city, :address_line_1, :address_line_2, :postal_code, :phone)
+      params.require(:order).permit(:comment, :email, :name, :country, :state, :city, :address_line_1, :address_line_2, :postal_code, :phone)
     end
 
     def check_order_owner!
