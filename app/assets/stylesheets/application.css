@@ -212,10 +212,11 @@ a:hover {
 
 .columnCaptions span:first-child{
   padding-left:28px;
+  padding-right: 50px;
 }
 
 .columnCaptions span{
-  padding: 0 51px 0 0;
+  padding: 0 180px 0 0;
 }
 
 .columnCaptions span:last-child{
