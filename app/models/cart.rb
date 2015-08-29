@@ -4,6 +4,10 @@ class Cart < ActiveRecord::Base
 
   include Countable
 
+  def find_in_cart_items(id)
+    cart_items.find_by_id(id)
+  end
+
   def empty?
   	cart_items.empty?
   end

@@ -24,7 +24,6 @@ class CardPaymentsController < ApplicationController
         redirect_to active_order_path, notice: "Order succesfully paid." and return
       end
     end
-    @card_payment.destroy
     render 'new'
   end
 

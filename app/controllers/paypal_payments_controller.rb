@@ -1,6 +1,6 @@
 class PaypalPaymentsController < ApplicationController
   before_filter :authenticate_admin!, only: [:index, :show]
-  before_action :set_order_and_check_paid, only: [:new, :success]
+  before_action :set_order_and_check_paid, only: [:new, :success, :fail]
   layout 'admin_area', only: [:index, :show]
 
   def index
@@ -12,22 +12,13 @@ class PaypalPaymentsController < ApplicationController
   end
 
   def new
-    items = @order.cart_items.map do |cart_item|
-      product = cart_item.product
-      [ [:name, product.title],
-        [:description, product.description],
-        [:quantity, cart_item.count],
-        [:amount, cart_item.total * 100]
-      ]
-    end
-    items.map!(&:to_h)
     response = PAYPAL_GATEWAY.setup_purchase(@order.total * 100,
       ip: request.remote_ip,
       return_url: paypal_success_url,
       cancel_return_url: paypal_fail_url,
       currency: "USD",
       allow_guest_checkout: true,
-      items: items
+      items: @order.paypal_items
     )
     redirect_to PAYPAL_GATEWAY.redirect_url_for(response.token)
   end

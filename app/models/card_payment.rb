@@ -34,7 +34,7 @@ class CardPayment < ActiveRecord::Base
   end
 
   def valid_card
-    if !credit_card.valid?
+    unless credit_card.valid?
       errors.add(:base, "The credit card information you provided is not valid.  Please double check the information you provided and then try again.")
       false
     else

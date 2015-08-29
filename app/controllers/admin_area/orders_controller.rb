@@ -1,7 +1,7 @@
 class AdminArea::OrdersController < ApplicationController
-  layout 'admin_area', except: [:create]
+  layout 'admin_area', except: [:create, :destroy]
   before_filter :authenticate_admin!, except: [:create, :destroy]
-  before_filter :check_order_owner!, only: [:destroy]
+  before_filter :check_order_owner_and_order_not_paid!, only: [:destroy]
   before_filter :check_cart_not_empty!, only: [:create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
@@ -78,7 +78,7 @@ class AdminArea::OrdersController < ApplicationController
       params.require(:order).permit(:comment, :email, :name, :country, :state, :city, :address_line_1, :address_line_2, :postal_code, :phone)
     end
 
-    def check_order_owner!
+    def check_order_owner_and_order_not_paid!
       return true if session[:order] == @order.id && !@order.paid?
       authenticate_admin!
     end

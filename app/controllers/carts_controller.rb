@@ -48,8 +48,7 @@ class CartsController < ApplicationController
   private
 
   def set_cart_item
-    @cart_item = @cart.cart_items.find_by_id(cart_params[:id])
-    @cart_item = nil if @cart_item && @cart_item.cart != @cart
+    @cart_item = @cart.find_in_cart_items(cart_params[:id])
   end
 
   def cart_params
